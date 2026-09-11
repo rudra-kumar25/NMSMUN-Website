@@ -1,0 +1,5 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="32" cy="32" r="29" fill="#ECE7F2" stroke="#8B57D6" stroke-width="2"/>
+  <circle cx="32" cy="32" r="23" fill="none" stroke="#D9CCEC" stroke-width="1"/>
+  <text x="32" y="39" text-anchor="middle" font-family="Outfit, Arial, sans-serif" font-weight="700" font-size="19" fill="#2E0B2A">SAB</text>
+</svg>

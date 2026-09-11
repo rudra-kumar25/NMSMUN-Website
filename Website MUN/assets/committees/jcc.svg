@@ -1,0 +1,54 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+  <circle cx="60" cy="60" r="59" fill="#1B0E2D"/>
+  <circle cx="60" cy="60" r="56.5" fill="none" stroke="#E0B80C" stroke-width="1.4" opacity="0.55"/>
+  <g>
+      <circle cx="60" cy="58" r="19" fill="none" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <circle cx="60" cy="58" r="11.4" fill="none" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="60.00" y1="46.22" x2="60.00" y2="39.00" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="66.92" y1="48.47" x2="71.17" y2="42.63" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="71.20" y1="54.36" x2="78.07" y2="52.13" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="71.20" y1="61.64" x2="78.07" y2="63.87" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="66.92" y1="67.53" x2="71.17" y2="73.37" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="60.00" y1="69.78" x2="60.00" y2="77.00" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="53.08" y1="67.53" x2="48.83" y2="73.37" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="48.80" y1="61.64" x2="41.93" y2="63.87" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="48.80" y1="54.36" x2="41.93" y2="52.13" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+      <line x1="53.08" y1="48.47" x2="48.83" y2="42.63" stroke="#E0B80C" stroke-width="1" opacity="0.55"/>
+  </g>
+  <g transform="translate(60,58) scale(1.5) translate(-60,-58)">
+      <g fill="none" stroke="#FFFFFF" stroke-width="1.7"><ellipse cx="55.8" cy="58" rx="5.6" ry="4" transform="rotate(-28 55.8 58)"/><ellipse cx="64.2" cy="58" rx="5.6" ry="4" transform="rotate(-28 64.2 58)"/></g>
+  </g>
+  <g>
+      <g transform="translate(72.74,26.48) rotate(22.0)"><path d="M0,-3.60 C2.59,-1.51 2.59,1.51 0,3.60 C-2.59,1.51 -2.59,-1.51 0,-3.60 Z" fill="#E0B80C"/></g>
+      <g transform="translate(77.26,28.70) rotate(30.5)"><path d="M0,-3.80 C2.74,-1.60 2.74,1.60 0,3.80 C-2.74,1.60 -2.74,-1.60 0,-3.80 Z" fill="#E0B80C"/></g>
+      <g transform="translate(81.40,31.58) rotate(39.0)"><path d="M0,-4.00 C2.88,-1.68 2.88,1.68 0,4.00 C-2.88,1.68 -2.88,-1.68 0,-4.00 Z" fill="#E0B80C"/></g>
+      <g transform="translate(85.07,35.03) rotate(47.5)"><path d="M0,-4.20 C3.02,-1.76 3.02,1.76 0,4.20 C-3.02,1.76 -3.02,-1.76 0,-4.20 Z" fill="#E0B80C"/></g>
+      <g transform="translate(88.19,38.99) rotate(56.0)"><path d="M0,-4.40 C3.17,-1.85 3.17,1.85 0,4.40 C-3.17,1.85 -3.17,-1.85 0,-4.40 Z" fill="#E0B80C"/></g>
+      <g transform="translate(90.69,43.36) rotate(64.5)"><path d="M0,-4.60 C3.31,-1.93 3.31,1.93 0,4.60 C-3.31,1.93 -3.31,-1.93 0,-4.60 Z" fill="#E0B80C"/></g>
+      <g transform="translate(92.51,48.06) rotate(73.0)"><path d="M0,-4.80 C3.46,-2.02 3.46,2.02 0,4.80 C-3.46,2.02 -3.46,-2.02 0,-4.80 Z" fill="#E0B80C"/></g>
+      <g transform="translate(93.63,52.97) rotate(81.5)"><path d="M0,-5.00 C3.60,-2.10 3.60,2.10 0,5.00 C-3.60,2.10 -3.60,-2.10 0,-5.00 Z" fill="#E0B80C"/></g>
+      <g transform="translate(94.00,58.00) rotate(90.0)"><path d="M0,-5.20 C3.74,-2.18 3.74,2.18 0,5.20 C-3.74,2.18 -3.74,-2.18 0,-5.20 Z" fill="#E0B80C"/></g>
+      <g transform="translate(93.63,63.03) rotate(98.5)"><path d="M0,-5.40 C3.89,-2.27 3.89,2.27 0,5.40 C-3.89,2.27 -3.89,-2.27 0,-5.40 Z" fill="#E0B80C"/></g>
+      <g transform="translate(92.51,67.94) rotate(107.0)"><path d="M0,-5.60 C4.03,-2.35 4.03,2.35 0,5.60 C-4.03,2.35 -4.03,-2.35 0,-5.60 Z" fill="#E0B80C"/></g>
+      <g transform="translate(90.69,72.64) rotate(115.5)"><path d="M0,-5.80 C4.18,-2.44 4.18,2.44 0,5.80 C-4.18,2.44 -4.18,-2.44 0,-5.80 Z" fill="#E0B80C"/></g>
+      <g transform="translate(88.19,77.01) rotate(124.0)"><path d="M0,-6.00 C4.32,-2.52 4.32,2.52 0,6.00 C-4.32,2.52 -4.32,-2.52 0,-6.00 Z" fill="#E0B80C"/></g>
+      <g transform="translate(85.07,80.97) rotate(132.5)"><path d="M0,-6.20 C4.46,-2.60 4.46,2.60 0,6.20 C-4.46,2.60 -4.46,-2.60 0,-6.20 Z" fill="#E0B80C"/></g>
+      <g transform="translate(81.40,84.42) rotate(141.0)"><path d="M0,-6.40 C4.61,-2.69 4.61,2.69 0,6.40 C-4.61,2.69 -4.61,-2.69 0,-6.40 Z" fill="#E0B80C"/></g>
+      <g transform="translate(47.26,26.48) rotate(-22.0)"><path d="M0,-3.60 C2.59,-1.51 2.59,1.51 0,3.60 C-2.59,1.51 -2.59,-1.51 0,-3.60 Z" fill="#E0B80C"/></g>
+      <g transform="translate(42.74,28.70) rotate(-30.5)"><path d="M0,-3.80 C2.74,-1.60 2.74,1.60 0,3.80 C-2.74,1.60 -2.74,-1.60 0,-3.80 Z" fill="#E0B80C"/></g>
+      <g transform="translate(38.60,31.58) rotate(-39.0)"><path d="M0,-4.00 C2.88,-1.68 2.88,1.68 0,4.00 C-2.88,1.68 -2.88,-1.68 0,-4.00 Z" fill="#E0B80C"/></g>
+      <g transform="translate(34.93,35.03) rotate(-47.5)"><path d="M0,-4.20 C3.02,-1.76 3.02,1.76 0,4.20 C-3.02,1.76 -3.02,-1.76 0,-4.20 Z" fill="#E0B80C"/></g>
+      <g transform="translate(31.81,38.99) rotate(-56.0)"><path d="M0,-4.40 C3.17,-1.85 3.17,1.85 0,4.40 C-3.17,1.85 -3.17,-1.85 0,-4.40 Z" fill="#E0B80C"/></g>
+      <g transform="translate(29.31,43.36) rotate(-64.5)"><path d="M0,-4.60 C3.31,-1.93 3.31,1.93 0,4.60 C-3.31,1.93 -3.31,-1.93 0,-4.60 Z" fill="#E0B80C"/></g>
+      <g transform="translate(27.49,48.06) rotate(-73.0)"><path d="M0,-4.80 C3.46,-2.02 3.46,2.02 0,4.80 C-3.46,2.02 -3.46,-2.02 0,-4.80 Z" fill="#E0B80C"/></g>
+      <g transform="translate(26.37,52.97) rotate(-81.5)"><path d="M0,-5.00 C3.60,-2.10 3.60,2.10 0,5.00 C-3.60,2.10 -3.60,-2.10 0,-5.00 Z" fill="#E0B80C"/></g>
+      <g transform="translate(26.00,58.00) rotate(-90.0)"><path d="M0,-5.20 C3.74,-2.18 3.74,2.18 0,5.20 C-3.74,2.18 -3.74,-2.18 0,-5.20 Z" fill="#E0B80C"/></g>
+      <g transform="translate(26.37,63.03) rotate(-98.5)"><path d="M0,-5.40 C3.89,-2.27 3.89,2.27 0,5.40 C-3.89,2.27 -3.89,-2.27 0,-5.40 Z" fill="#E0B80C"/></g>
+      <g transform="translate(27.49,67.94) rotate(-107.0)"><path d="M0,-5.60 C4.03,-2.35 4.03,2.35 0,5.60 C-4.03,2.35 -4.03,-2.35 0,-5.60 Z" fill="#E0B80C"/></g>
+      <g transform="translate(29.31,72.64) rotate(-115.5)"><path d="M0,-5.80 C4.18,-2.44 4.18,2.44 0,5.80 C-4.18,2.44 -4.18,-2.44 0,-5.80 Z" fill="#E0B80C"/></g>
+      <g transform="translate(31.81,77.01) rotate(-124.0)"><path d="M0,-6.00 C4.32,-2.52 4.32,2.52 0,6.00 C-4.32,2.52 -4.32,-2.52 0,-6.00 Z" fill="#E0B80C"/></g>
+      <g transform="translate(34.93,80.97) rotate(-132.5)"><path d="M0,-6.20 C4.46,-2.60 4.46,2.60 0,6.20 C-4.46,2.60 -4.46,-2.60 0,-6.20 Z" fill="#E0B80C"/></g>
+      <g transform="translate(38.60,84.42) rotate(-141.0)"><path d="M0,-6.40 C4.61,-2.69 4.61,2.69 0,6.40 C-4.61,2.69 -4.61,-2.69 0,-6.40 Z" fill="#E0B80C"/></g>
+  </g>
+  <g stroke="#E0B80C" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M53.0,82.0 L67.0,90.0"/><path d="M53.0,90.0 L67.0,82.0"/></g>
+</svg>

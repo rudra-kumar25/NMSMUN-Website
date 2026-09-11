@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Application — NMSMUN</title>
+  <meta name="description" content="Apply to NMSMUN. Submitting the form triggers an automatic confirmation email with your reference number.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#350D30">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page-application">
+  <div id="site-header"></div>
+
+  <main>
+
+    <!-- Purple banner -->
+    <div class="page-banner">
+      <span class="page-banner__numeral" aria-hidden="true">IV</span>
+      <div class="container">
+        <span class="eyebrow" data-typewriter>Application</span>
+        <h1>Apply to NMSMUN</h1>
+        <p>Submitting this form triggers an automatic confirmation email with your reference number. Keep that email.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container split">
+
+        <!-- LEFT: the form (and, after submit, the confirmation) -->
+        <div>
+          <div id="application-result"><!-- confirmation card is injected here on success --></div>
+
+          <form class="form-card" id="application-form" novalidate>
+            <span class="form-progress" data-progress>0/5 REQUIRED</span>
+
+            <!-- Full name -->
+            <div class="field">
+              <label for="fullName">Full name<span class="field__required" aria-hidden="true">*</span>
+                <span class="hint">— as it should appear on your placard</span>
+              </label>
+              <input type="text" id="fullName" name="fullName" autocomplete="name" required aria-required="true">
+              <div class="field__error">Please enter your full name.</div>
+            </div>
+
+            <!-- Email -->
+            <div class="field">
+              <label for="email">Email for confirmation<span class="field__required" aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" required aria-required="true">
+              <div class="field__error">Please enter a valid email address.</div>
+            </div>
+
+            <!-- Grade -->
+            <div class="field">
+              <label for="grade">Grade<span class="field__required" aria-hidden="true">*</span></label>
+              <select id="grade" name="grade" required aria-required="true">
+                <option value="">Select your grade</option>
+                <option value="Grade 9">Grade 9</option>
+                <option value="Grade 10">Grade 10</option>
+                <option value="Grade 11">Grade 11</option>
+                <option value="Grade 12">Grade 12</option>
+              </select>
+              <div class="field__error">Please select your grade.</div>
+            </div>
+
+            <!-- Preferred committee -->
+            <div class="field">
+              <label for="committee">Preferred committee<span class="field__required" aria-hidden="true">*</span></label>
+              <select id="committee" name="committee" required aria-required="true">
+                <option value="">Select a committee</option>
+                <optgroup label="Junior">
+                  <option>UNICEF</option>
+                </optgroup>
+                <optgroup label="Beginner">
+                  <option>UNGA — Third Committee (GA3)</option>
+                </optgroup>
+                <optgroup label="Beginner / Intermediate">
+                  <option>UNODC</option>
+                  <option>UNGA — Sixth Committee (GA6)</option>
+                  <option>International Film and Television Association (IFTVA)</option>
+                </optgroup>
+                <optgroup label="Intermediate">
+                  <option>UNCSW</option>
+                </optgroup>
+                <optgroup label="Intermediate / Advanced">
+                  <option>International Psychological Review Tribunal (IPRT)</option>
+                  <option>UN Special Tribunal on Institutional Reform (UNSTIR)</option>
+                  <option>FIFA Governance, Audit and Compliance Committee (FIFA-GACC)</option>
+                  <option>UNHRC</option>
+                  <option>Lok Sabha</option>
+                </optgroup>
+                <optgroup label="Advanced">
+                  <option>UNSC</option>
+                  <option>UN Secretary-General's Scientific Advisory Board (UNSG-SAB)</option>
+                  <option>Black Swan Response Committee (BSRC)</option>
+                  <option>Economic Acceleration Panel (EAP)</option>
+                </optgroup>
+              </select>
+              <div class="field__error">Please choose a preferred committee.</div>
+            </div>
+
+            <!-- Experience level (three selectable boxes = one choice) -->
+            <div class="field" data-field="experience">
+              <label id="experience-label">Experience level<span class="field__required" aria-hidden="true">*</span></label>
+              <div class="exp-options" role="radiogroup" aria-labelledby="experience-label">
+                <label class="exp-option">
+                  <input type="radio" name="experience" value="Beginner" required>
+                  Beginner
+                </label>
+                <label class="exp-option">
+                  <input type="radio" name="experience" value="Intermediate" required>
+                  Intermediate
+                </label>
+                <label class="exp-option">
+                  <input type="radio" name="experience" value="Advanced" required>
+                  Advanced
+                </label>
+              </div>
+              <div class="field__error">Please select an experience level.</div>
+            </div>
+
+            <!-- Notes -->
+            <div class="field">
+              <label for="notes">Notes <span class="hint">— optional</span></label>
+              <textarea id="notes" name="notes" placeholder="Anything the Secretariat should know (accessibility needs, delegation name, prior awards)…"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary">Submit</button>
+            <p class="small muted" style="margin-top:12px">
+              This is a static demo form. No data leaves your browser until a backend is connected —
+              see the code comment in <code>js/site.js</code>.
+            </p>
+          </form>
+        </div>
+
+        <!-- RIGHT: how it works + deadlines -->
+        <div>
+          <div class="how-box">
+            <span class="eyebrow eyebrow--on-purple">How it works</span>
+            <h3 class="card-title" style="color:#fff">Four steps</h3>
+            <ol>
+              <li><strong>Submit this form.</strong> Full name, email, grade and committee preference.</li>
+              <li><strong>Automatic confirmation email.</strong> Sent immediately with your reference number.</li>
+              <li><strong>Position paper.</strong> We email you a brief; you submit a paper before the deadline.</li>
+              <li><strong>Allocation.</strong> Your committee and country are released with the second circular.</li>
+            </ol>
+          </div>
+
+          <div class="deadline-box">
+            <span class="eyebrow">Deadlines</span>
+            <p style="margin:0"><strong>Applications close:</strong> <span class="tba">TBA</span></p>
+            <p class="small muted" style="margin:6px 0 0">Position paper and allocation dates are published with the first circular.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="js/site.js"></script>
+</body>
+</html>

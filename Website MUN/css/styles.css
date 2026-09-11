@@ -1,0 +1,1487 @@
+/* ==========================================================================
+   NMSMUN — GEMS New Millennium School Model United Nations
+   Global stylesheet. One file, used by every page.
+
+   HOW THIS FILE IS ORGANISED
+   1.  Design tokens (colours, fonts, spacing)  <- edit brand colours here
+   2.  Base / reset
+   3.  Typography helpers
+   4.  Layout (container, section, grid)
+   5.  Buttons
+   6.  Header
+   7.  Footer
+   8.  Reusable components (cards, chips, TBA flag, stat tiles, accordion...)
+   9.  Scroll-reveal animation
+   10. Page-specific blocks (home, about, conference, resources, application, portal)
+   11. Visual flourishes & extended motion
+   12. Responsive / media queries
+
+   Nothing here needs changing to edit page TEXT — that lives in the .html files
+   and in js/site.js (header + footer).
+   ========================================================================== */
+
+/* 1. DESIGN TOKENS ========================================================= */
+:root {
+  /* Brand colours (from the design system) */
+  --purple:            #2E0B2A; /* header / footer / banners — brand purple, balanced for legibility */
+  --purple-deep:       #260922; /* footer — a touch darker than the header */
+  --accent:            #8B57D6; /* accent + links */
+  --btn:               #E0B80C; /* buttons (yellow / gold) */
+  --btn-hover:         #F5CC16; /* buttons brighten on hover */
+  --bg:                #FAF7FD; /* page background */
+  --text:              #453A55; /* body text */
+  --yellow-on-purple:  #FFD633; /* yellow text ON dark purple only */
+  --yellow-on-white:   #7D6404; /* yellow text on light backgrounds (never bright yellow) */
+
+  /* Support tones (derived, safe to tweak) */
+  --lilac:             #F1E9FA; /* soft lilac card fill */
+  --lilac-deep:        #E7DBF7; /* lilac used on white sections */
+  --cream:             #FDF7E3; /* confirmation card */
+  --border:            #E6DCF1; /* thin 1px light border */
+  --border-strong:     #D9CCEC;
+  --grey-chip-bg:      #ECE7F2;
+  --grey-chip-text:    #6C6280;
+  --white:             #FFFFFF;
+
+  /* Type */
+  --font-head: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif; /* editorial accent — pull-quotes, signature only */
+
+  /* Shape */
+  --radius: 4px;                 /* sharp 4px corners everywhere */
+  --maxw: 1240px;                /* content max width */
+  --hairline: 1px solid var(--border);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --reveal-speed: 620ms;         /* medium-speed scroll fade */
+
+  /* Shadows — resting elevation for cards/tiles, plus the hover shadow.
+     Each is layered (a tight contact shadow + a soft ambient throw) so
+     raised surfaces read as sitting at a real height above the page,
+     not just outlined. */
+  --shadow-rest: 0 1px 1px rgba(37, 20, 63, 0.07), 0 3px 8px -3px rgba(37, 20, 63, 0.14), 0 22px 40px -26px rgba(37, 20, 63, 0.32);
+  --shadow-hover: 0 2px 3px rgba(37, 20, 63, 0.09), 0 10px 20px -8px rgba(37, 20, 63, 0.24), 0 36px 60px -28px rgba(37, 20, 63, 0.4);
+  --shadow-lg: 0 8px 18px -6px rgba(20, 8, 30, 0.35), 0 46px 90px -34px rgba(20, 8, 30, 0.62);
+  --shadow-press: inset 0 2px 5px rgba(37, 20, 63, 0.16), inset 0 0 0 1px rgba(37, 20, 63, 0.03);
+
+  /* Bevels — a hairline highlight standing in for a light source above the
+     page, so flat-coloured raised surfaces (white cards, dark glass tiles)
+     read as having a lit top edge rather than a painted-on rectangle. */
+  --bevel: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --bevel-dark: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  --btn-shade: #AD8C0A; /* the "side" of the gold button — darker gold, gives it a pressable edge */
+
+  /* Gradient fills for the dark-purple panels (header, hero, footer, banners) —
+     a slight diagonal shift in the same brand purple, so panels read as lit
+     rather than flat colour swatches. */
+  --grad-purple: linear-gradient(155deg, #451441 0%, var(--purple) 45%, #2a0926 100%);
+  --grad-purple-deep: linear-gradient(165deg, #34102f 0%, var(--purple-deep) 55%, #1a0518 100%);
+}
+
+/* 2. BASE / RESET ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  /* Two faint colour washes behind the whole page — barely visible on their
+     own, but they stop every white/lilac section from reading as one flat
+     sheet of colour. */
+  background:
+    radial-gradient(1100px 620px at 12% -8%, rgba(139, 87, 214, 0.06), transparent 60%),
+    radial-gradient(900px 520px at 112% 8%, rgba(224, 184, 12, 0.05), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Fine paper-grain overlay across the whole site — the one thing that most
+   separates a flat template from something that feels printed/tactile.
+   Fixed, non-interactive, blended so it reads on both light and dark panels. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Keyboard focus ring — visible on every interactive element, not just
+   form fields. Colour flips to gold inside dark-purple regions so it
+   stays legible against both backgrounds. */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.site-header :focus-visible,
+.site-footer :focus-visible,
+.hero :focus-visible,
+.page-banner :focus-visible,
+.how-box :focus-visible,
+body.page-portal :focus-visible {
+  outline-color: var(--yellow-on-purple);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  font-weight: 600;              /* semi-bold */
+  color: var(--purple);
+  line-height: 1.15;
+  margin: 0 0 0.4em;
+  text-wrap: balance;
+}
+
+p { margin: 0 0 1rem; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+/* 3. TYPOGRAPHY HELPERS =================================================== */
+/* Bold 11px all-caps label with wide letter-spacing, sits above headings */
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 12px;
+  display: block;
+}
+.eyebrow--on-purple { color: var(--yellow-on-purple); }
+/* Small tick before every eyebrow — a running "document heading" mark */
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 15px;
+  height: 1px;
+  margin-right: 8px;
+  vertical-align: middle;
+  background: currentColor;
+  opacity: 0.65;
+}
+
+.section-title { font-size: 34px; letter-spacing: -0.01em; }   /* section titles: 34px */
+.card-title    { font-size: 20px; }           /* card titles: 20px */
+.small         { font-size: 13px; }           /* small text: 13px */
+.muted         { color: var(--grey-chip-text); }
+.lede          { font-size: 18px; }
+
+/* Hero headline scales 40 -> 64px */
+.hero-title { font-size: clamp(40px, 5.4vw, 64px); letter-spacing: -0.02em; }
+
+/* --- Pull-quote: the one editorial serif moment (SG letter, etc.) ------ */
+.pull-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(21px, 2.4vw, 27px);
+  line-height: 1.42;
+  color: var(--purple);
+  position: relative;
+  padding-left: 30px;
+  margin: 24px 0;
+}
+.pull-quote::before {
+  content: "\201C";
+  position: absolute;
+  left: -4px;
+  top: -18px;
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--btn);
+}
+.signature {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--purple);
+  letter-spacing: 0.01em;
+}
+
+/* 4. LAYOUT ============================================================== */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Every <section class="section"> fades in on scroll (see block 9) */
+.section { padding: 76px 0; }
+.section--tight { padding: 52px 0; }
+.section--white { background: linear-gradient(180deg, #FFFFFF 0%, #FCFAFE 100%); }
+.section--lilac { background: linear-gradient(165deg, var(--lilac) 0%, var(--lilac-deep) 100%); }
+
+.grid { display: grid; gap: 28px; }
+.grid-2 { grid-template-columns: 1fr 1fr; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.split--hero { align-items: center; }
+
+/* Purple banner that sits under the header on interior pages */
+.page-banner {
+  background: var(--grad-purple);
+  color: var(--white);
+  padding: 64px 0;
+}
+.page-banner h1 { color: var(--white); font-size: clamp(32px, 4.4vw, 48px); }
+.page-banner p { color: #D9CCEC; max-width: 60ch; margin: 0; }
+.page-banner .eyebrow { color: var(--yellow-on-purple); }
+
+/* 5. BUTTONS ============================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 13px 24px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 160ms var(--ease), color 160ms var(--ease),
+              border-color 160ms var(--ease), transform 160ms var(--ease);
+}
+.btn:hover { text-decoration: none; transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(0.96); }
+.btn[disabled]:hover, .btn[disabled]:active { transform: none; }
+
+/* Primary — the yellow button. Brightens on hover. Gradient + a solid
+   "side" edge (the 0 4px 0 layer) instead of a flat fill, so it reads as a
+   physical keycap sitting above the page — and can visibly press down. */
+.btn--primary {
+  background: linear-gradient(155deg, var(--btn-hover), var(--btn));
+  color: var(--purple);
+  box-shadow: 0 4px 0 var(--btn-shade), 0 12px 22px -12px rgba(224, 184, 12, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.btn--primary:hover {
+  background: linear-gradient(155deg, var(--btn-hover), var(--btn-hover));
+  box-shadow: 0 6px 0 var(--btn-shade), 0 20px 32px -12px rgba(224, 184, 12, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+.btn--primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--btn-shade), 0 8px 16px -10px rgba(224, 184, 12, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Outlined — used next to the primary button */
+.btn--outline {
+  background: transparent;
+  border-color: currentColor;
+  color: var(--purple);
+}
+.btn--outline:hover { border-color: var(--btn); color: var(--yellow-on-white); box-shadow: var(--shadow-rest); }
+
+/* Outline variant when sitting on the dark purple hero — a touch of glass */
+.btn--outline-light {
+  color: var(--white);
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.btn--outline-light:hover { border-color: var(--btn); color: var(--yellow-on-purple); background: rgba(255, 255, 255, 0.07); }
+
+.btn--sm { padding: 9px 16px; font-size: 12px; }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* 6. HEADER ============================================================= */
+/* Markup is injected by js/site.js so it is identical on every page. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--grad-purple);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--bevel-dark), 0 4px 14px -8px rgba(10, 4, 14, 0.45);
+  transition: box-shadow 260ms var(--ease);
+}
+/* js/site.js (initHeaderScrollShadow) adds this once the page scrolls, so the
+   header lifts off the content instead of just ending at a hairline. */
+.site-header.is-scrolled { box-shadow: var(--bevel-dark), 0 18px 34px -22px rgba(10, 4, 14, 0.65); }
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 72px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand__logos { display: flex; align-items: center; gap: 10px; }
+.brand__logos img { height: 46px; width: auto; filter: drop-shadow(0 3px 5px rgba(10, 4, 14, 0.4)); transition: transform 260ms var(--ease); }         /* logos at 46px */
+.brand:hover .brand__logos img:first-child { transform: rotate(-8deg) scale(1.08); }
+.brand__divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.25);
+}
+.brand__text { display: flex; flex-direction: column; line-height: 1.15; }
+.brand__name {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+.brand__school { font-size: 11px; color: #C9B9E4; letter-spacing: 0.03em; }
+
+.nav { display: flex; align-items: center; gap: 6px; }
+.nav a {
+  position: relative;
+  color: #DCD2EC;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+}
+.nav a:hover { color: var(--white); text-decoration: none; }
+/* Active page gets a yellow underline */
+.nav a[aria-current="page"] { color: var(--white); }
+.nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 2px;
+  height: 2px;
+  background: var(--btn);
+  border-radius: 2px;
+}
+.nav .btn { margin-left: 8px; }
+/* Nav link colour must not bleed into the Apply button */
+.nav .btn--primary { color: var(--purple); }
+.nav .btn--primary:hover { color: var(--purple); }
+.nav .btn--outline-light { color: var(--white); }
+
+/* Mobile nav toggle (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: var(--radius);
+  color: var(--white);
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* 7. FOOTER ============================================================= */
+.site-footer {
+  background: var(--grad-purple-deep);
+  color: #C7B9DE;
+  padding: 56px 0 28px;
+  position: relative;
+  overflow: hidden;
+}
+.site-footer a { color: #C7B9DE; }
+.site-footer a:hover { color: var(--yellow-on-purple); text-decoration: none; }
+/* Faint echo of the hero/page-banner ring motif, so the footer reads as
+   part of the same system rather than a plain dark strip closing the page. */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  bottom: -230px; left: -170px;
+  width: 520px; height: 520px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle,
+    transparent 0 27%,
+    rgba(255, 214, 51, 0.05) 27% 28%, transparent 28% 43%,
+    rgba(255, 255, 255, 0.04) 43% 44%, transparent 44% 61%,
+    rgba(255, 214, 51, 0.035) 61% 62%, transparent 62% 80%,
+    rgba(255, 255, 255, 0.03) 80% 81%, transparent 81%);
+}
+.site-footer > .container { position: relative; z-index: 1; }
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 36px;
+}
+.footer-brand__logos { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.footer-brand__logos img { height: 52px; width: auto; filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45)); }   /* footer logos at 52px */
+.footer-brand__divider { width: 1px; height: 34px; background: rgba(255,255,255,0.2); }
+.footer-brand p { font-size: 13px; max-width: 34ch; color: #A99BC6; }
+.footer-social { margin-top: 18px; }
+.footer-social__label {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow-on-purple);
+  margin-bottom: 10px;
+}
+.footer-social__icons { display: flex; gap: 10px; }
+.footer-social__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius);
+  color: #C7B9DE;
+  transition: border-color 200ms var(--ease), color 200ms var(--ease);
+}
+.footer-social__link:hover { border-color: var(--yellow-on-purple); color: var(--yellow-on-purple); }
+.footer-social__link.is-soon { opacity: 0.4; cursor: default; }
+.footer-social__link.is-soon:hover { border-color: rgba(255,255,255,0.2); color: #C7B9DE; }
+.footer-col h4 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow-on-purple);
+  margin-bottom: 14px;
+}
+.footer-col li { margin-bottom: 9px; font-size: 14px; }
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #A99BC6;
+}
+
+/* 8. REUSABLE COMPONENTS ================================================ */
+
+/* --- TBA / placeholder flag -------------------------------------------------
+   Wrap ANY not-yet-final value in <span class="tba">TBA</span> (or add the
+   class "is-tba" to a chip). Every placeholder on the site uses this so it is
+   obvious what still needs real content. */
+.tba {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--yellow-on-white);
+  background: #FBF0C6;
+  border: 1.5px solid #D9B84A;
+  outline: 1px solid #D9B84A;
+  outline-offset: 2px;
+  border-radius: var(--radius);
+  padding: 2px 9px;
+  line-height: 1.5;
+  transform: rotate(-2deg);
+}
+/* TBA sitting on a dark purple background */
+.tba--on-purple {
+  color: var(--yellow-on-purple);
+  background: rgba(255, 214, 51, 0.12);
+  border-color: rgba(255, 214, 51, 0.55);
+  outline-color: rgba(255, 214, 51, 0.28);
+}
+
+/* --- Numeral badge: the site's recurring roman-numeral seal — tier
+   markers, milestones, resource cards, all read from the same device. */
+.numeral-badge, .rn-card__numeral {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--purple);
+  background: radial-gradient(circle at 34% 28%, #FFFFFF 0%, #F7F2FC 55%, #ECE3F7 100%);
+  position: relative;
+  flex: none;
+  line-height: 1;
+  box-shadow: 0 1px 2px rgba(37, 20, 63, 0.08), 0 8px 14px -9px rgba(37, 20, 63, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(139, 87, 214, 0.14);
+  transition: box-shadow 220ms var(--ease), transform 220ms var(--ease);
+}
+.card--hover:hover .numeral-badge {
+  box-shadow: 0 0 0 5px rgba(139, 87, 214, 0.12), 0 10px 16px -9px rgba(37, 20, 63, 0.45),
+              inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -2px 3px rgba(139, 87, 214, 0.14);
+  transform: scale(1.06);
+}
+.numeral-badge::before, .numeral-badge::after,
+.rn-card__numeral::before, .rn-card__numeral::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--btn);
+  transform: translateX(-50%);
+}
+.numeral-badge::before, .rn-card__numeral::before { top: -2px; }
+.numeral-badge::after,  .rn-card__numeral::after  { bottom: -2px; }
+.card > .numeral-badge { margin-bottom: 16px; }
+.rn-card__numeral { font-size: 18px; margin-bottom: 16px; }
+
+.numeral-badge--on-purple {
+  background: radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.02) 65%);
+  border-color: rgba(255, 214, 51, 0.5);
+  color: var(--white);
+  box-shadow: 0 8px 14px -9px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -2px 3px rgba(0, 0, 0, 0.35);
+}
+.numeral-badge--on-purple::before, .numeral-badge--on-purple::after {
+  background: var(--yellow-on-purple);
+}
+
+/* --- Card ---------------------------------------------------------------- */
+.card {
+  background: var(--white);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  padding: 26px;
+  box-shadow: var(--shadow-rest), var(--bevel);
+  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease),
+              border-color 200ms var(--ease);
+}
+/* Cards lift + tilt toward the cursor on hover, soft shadow, border turns
+   yellow. --tilt-x/--tilt-y/--spot-x/--spot-y are set by js/site.js
+   (initCardTilt) — they simply sit at their flat defaults without JS. */
+.card--hover {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --lift: 0px;
+  position: relative;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(var(--lift));
+}
+.card--hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(220px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(139, 87, 214, 0.14), transparent 70%);
+  transition: opacity 300ms var(--ease);
+}
+.card--hover:hover {
+  --lift: -4px;
+  box-shadow: var(--shadow-hover), var(--bevel);
+  border-color: var(--btn);
+}
+.card--hover:hover::before { opacity: 1; }
+.card__top-edge { height: 6px; width: 56px; border-radius: 0 0 3px 3px; margin: -26px 0 22px; }
+
+/* --- Chips ------------------------------------------------------------- */
+.chip {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  background: var(--grey-chip-bg);
+  color: var(--grey-chip-text);
+  margin: 0 6px 6px 0;
+  box-shadow: 0 1px 2px rgba(37, 20, 63, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.chip--yellow {                      /* the one yellow accent per screen */
+  background: #FBF0C6;
+  color: var(--yellow-on-white);
+  border: 1px solid #E7CE7A;
+}
+.chip--live { background: #FBF0C6; color: var(--yellow-on-white); border: 1px solid #E7CE7A; }
+.chip--soon { background: var(--grey-chip-bg); color: var(--grey-chip-text); }
+
+/* --- Stat tile (yellow left border) ---------------------------------- */
+.stat {
+  background: linear-gradient(165deg, #FFFFFF 0%, #FBF8FE 100%);
+  border: var(--hairline);
+  border-left: 4px solid var(--btn);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-rest), var(--bevel);
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --lift: 0px;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(var(--lift));
+  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
+}
+.stat:hover { --lift: -3px; box-shadow: var(--shadow-hover), var(--bevel); }
+.stat__num { font-family: var(--font-head); font-weight: 600; font-size: 28px; color: var(--purple); }
+.stat__label { font-size: 13px; color: var(--grey-chip-text); }
+
+/* --- Icon glyphs: small line icons on stat tiles and info boxes -------- */
+.icon-glyph {
+  width: 26px;
+  height: 26px;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: block;
+}
+.stat .icon-glyph { width: 24px; height: 24px; margin-bottom: 8px; }
+
+/* --- Pulsing dot (used in the status strip) ------------------------- */
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--btn);
+  display: inline-block;
+  position: relative;
+  flex: none;
+}
+.dot::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: var(--btn);
+  animation: dot-pulse 2s var(--ease) infinite;
+}
+@keyframes dot-pulse {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  70%  { transform: scale(2.6); opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dot::after { animation: none; }
+}
+
+/* --- Photo / image placeholder ------------------------------------- */
+/* A soft wash + two opposing corner brackets, like a scan/viewfinder frame,
+   rather than a generic striped "coming soon" box. */
+.ph {
+  background: linear-gradient(135deg, #F1E9FA 0%, #E7DBF7 100%);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: inset 0 2px 8px rgba(69, 58, 85, 0.1), inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--grey-chip-text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  min-height: 140px;
+  padding: 12px;
+  position: relative;
+}
+.ph::before, .ph::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--accent);
+  opacity: 0.4;
+}
+.ph::before { top: 8px; left: 8px; border-right: 0; border-bottom: 0; }
+.ph::after  { bottom: 8px; right: 8px; border-left: 0; border-top: 0; }
+/* Round variant: a medallion ring instead of corner brackets — fits a
+   portrait, not a scanned document. */
+.ph--round {
+  border: none;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  min-height: 0;
+  box-shadow:
+    0 0 0 1px var(--white),
+    0 0 0 3px var(--accent),
+    0 0 0 4px var(--white),
+    0 0 0 6px rgba(139, 87, 214, 0.22);
+}
+.ph--round::before, .ph--round::after { content: none; }
+.ph--avatar { width: 96px; height: 96px; }
+
+/* --- Accordion (Resources FAQ) ----------------------------------- */
+.accordion__item {
+  border: var(--hairline);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  background: var(--white);
+  box-shadow: var(--shadow-rest), var(--bevel);
+  transition: box-shadow 200ms var(--ease);
+}
+.accordion__item.is-open { box-shadow: var(--shadow-hover), var(--bevel); }
+.accordion__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 18px 20px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--purple);
+  cursor: pointer;
+  transition: background-color 160ms var(--ease);
+}
+.accordion__btn:hover { background: var(--lilac); }
+.accordion__icon {
+  flex: none;
+  width: 24px; height: 24px;
+  display: grid; place-items: center;
+  color: var(--yellow-on-white);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 260ms var(--ease);
+}
+/* "+" rotates into a "x" instead of the text swapping — one less DOM write */
+.accordion__item.is-open .accordion__icon { transform: rotate(45deg); }
+/* Grid-rows trick: animates open/closed without a hardcoded max-height,
+   so answers of any length are never clipped. */
+.accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms var(--ease);
+}
+/* Bottom padding sits on the LAST CHILD, not this box itself — this box is the
+   one being grid-rows-collapsed to 0, and an element's own padding can never
+   render smaller than its padding sum, so padding here would stop it fully
+   closing (a ~18px sliver of the answer stayed visible even when collapsed). */
+.accordion__panel-inner { overflow: hidden; min-height: 0; padding: 0 20px; font-size: 15px; }
+.accordion__panel-inner > *:last-child { padding-bottom: 18px; }
+.accordion__item.is-open .accordion__panel { grid-template-rows: 1fr; }
+
+/* --- Filter pills (Conference) --------------------------------- */
+.pills { display: flex; flex-wrap: wrap; gap: 10px; }
+.pill {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-strong);
+  background: var(--white);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(37, 20, 63, 0.06), 0 6px 12px -8px rgba(37, 20, 63, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: background-color 140ms var(--ease), color 140ms var(--ease),
+              border-color 140ms var(--ease), transform 140ms var(--ease),
+              box-shadow 140ms var(--ease);
+}
+.pill:hover { border-color: var(--btn); transform: translateY(-1px); box-shadow: 0 2px 3px rgba(37, 20, 63, 0.08), 0 10px 18px -8px rgba(37, 20, 63, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.7); }
+/* Active pill reads as pressed in, not just recoloured — the inset shadow
+   is the same device the selected experience-option and application-form
+   inputs use, so "currently selected" always looks physically pushed down. */
+.pill.is-active { background: var(--purple); color: var(--white); border-color: var(--purple); box-shadow: var(--shadow-press); transform: none; }
+
+/* --- Schedule table ------------------------------------------- */
+.table-wrap { overflow-x: auto; border: var(--hairline); border-radius: var(--radius); box-shadow: var(--shadow-rest); }
+table.schedule { width: 100%; border-collapse: collapse; min-width: 560px; }
+table.schedule thead th {
+  background: var(--purple);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  text-align: left;
+  box-shadow: var(--bevel-dark), inset 0 -3px 4px -2px rgba(0, 0, 0, 0.25);
+}
+table.schedule td {
+  padding: 14px 18px;
+  border-top: var(--hairline);
+  font-size: 14px;
+  vertical-align: top;
+}
+table.schedule tbody tr:nth-child(even) { background: #FBF8FE; }
+
+/* 9. SCROLL-REVEAL ANIMATION ================================== */
+/* js/site.js adds .reveal to every .section and toggles .is-visible. */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity var(--reveal-speed) var(--ease),
+              transform var(--reveal-speed) var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* --- Word-by-word heading reveal ---------------------------------------
+   js/site.js (initTextReveal) wraps each word of .section-title in
+   <span class="reveal-word"><span class="reveal-word__inner">…</span></span>,
+   then adds "is-revealed" once the heading enters the viewport. Skipped
+   entirely under reduced-motion, so those headings just stay as plain text.
+   .hero-title and .page-banner h1 use the typewriter heading effect below
+   instead — see initTypewriterHeadings(). */
+.js-text-reveal .reveal-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.js-text-reveal .reveal-word__inner {
+  display: inline-block;
+  transform: translateY(115%);
+  opacity: 0;
+  transition: transform 640ms var(--ease), opacity 480ms var(--ease);
+  transition-delay: calc(var(--w-i, 0) * 55ms);
+  will-change: transform, opacity;
+}
+.js-text-reveal.is-revealed .reveal-word__inner { transform: none; opacity: 1; }
+
+/* --- Typewriter caret ---------------------------------------------------
+   js/site.js types out [data-typewriter] elements (the small eyebrow
+   labels) and, separately, .hero-title / .page-banner h1 (the page's main
+   heading, via initTypewriterHeadings) a character at a time, toggling
+   "is-typing" while each runs; this draws the blinking caret at the end of
+   whichever one is currently typing. */
+[data-typewriter].is-typing::after,
+.hero-title.is-typing::after,
+.page-banner h1.is-typing::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: caret-blink 900ms steps(1) infinite;
+}
+@keyframes caret-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-typewriter].is-typing::after,
+  .hero-title.is-typing::after,
+  .page-banner h1.is-typing::after { display: none; }
+}
+
+/* 10. PAGE-SPECIFIC BLOCKS ==================================== */
+
+/* --- HOME: hero ------------------------------------------------ */
+.hero { background: var(--grad-purple); color: var(--white); padding: 84px 0; }
+.hero .hero-title { color: var(--white); }
+.hero p { color: #D6C9EC; max-width: 46ch; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+
+/* Countdown card */
+.countdown {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+}
+.countdown__label {
+  font-weight: 700; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #C9B9E4; margin-bottom: 14px;
+}
+.countdown__date {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--yellow-on-purple);
+  border: 1px solid rgba(255, 214, 51, 0.55);
+  border-radius: var(--radius);
+  padding: 3px 10px;
+}
+.countdown__tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+.countdown__tile {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  padding: 14px 6px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 -8px 12px -8px rgba(0, 0, 0, 0.35),
+              0 10px 18px -12px rgba(0, 0, 0, 0.5);
+}
+.countdown__num { font-family: var(--font-head); font-weight: 600; font-size: 30px; color: var(--white); }
+.countdown__unit { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #B7A6D4; }
+
+/* Home stat row + key dates strip */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: -40px; position: relative; z-index: 2; }
+
+.key-dates { background: var(--grad-purple); padding: 28px 0; margin-top: 44px; }
+.key-dates__inner { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.key-dates__label {
+  flex: none;
+  font-family: var(--font-body); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--yellow-on-purple);
+}
+.status-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+  flex: 1; min-width: 0;
+}
+.status-strip__item {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--bevel-dark), 0 10px 18px -14px rgba(0, 0, 0, 0.6);
+  transition: transform 200ms var(--ease), border-color 200ms var(--ease),
+              background-color 200ms var(--ease), box-shadow 200ms var(--ease);
+}
+.status-strip__item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 214, 51, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: var(--bevel-dark), 0 16px 26px -14px rgba(0, 0, 0, 0.65);
+}
+.status-strip__item h4 { font-family: var(--font-body); font-size: 13px; font-weight: 700; margin: 0 0 3px; color: var(--white); }
+.key-dates__value { color: var(--white); }
+
+/* SG letter photo card */
+.sg-card {
+  background: var(--lilac);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  padding: 26px;
+  text-align: center;
+  box-shadow: var(--shadow-rest), var(--bevel);
+}
+.sg-card .ph--avatar { margin: 0 auto 14px; }
+.sg-card h3 { margin-bottom: 2px; }
+
+/* Communities Cup tiles */
+.community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.community-tile {
+  border: var(--hairline);
+  border-radius: var(--radius);
+  padding: 18px;
+  background: var(--white);
+  box-shadow: var(--shadow-rest), var(--bevel);
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --lift: 0px;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(var(--lift));
+  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
+}
+.community-tile:hover { --lift: -3px; box-shadow: var(--shadow-hover), var(--bevel); }
+.community-tile__swatch { height: 46px; border-radius: var(--radius); margin-bottom: 12px; position: relative; overflow: hidden; }
+/* Diagonal light sheen over the flat swatch colour (set inline per tile) so
+   it reads as a lit surface rather than a solid rectangle. */
+.community-tile__swatch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent 55%, rgba(0, 0, 0, 0.12));
+}
+/* Cropped roman-numeral watermark, echoing the hero/page-banner medallion at
+   tile scale, so each community reads as its own sealed emblem. */
+.community-tile__numeral {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.3px rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* --- ABOUT: milestones + role cards -------------------------- */
+.milestone { display: flex; gap: 16px; padding: 16px 0; border-top: var(--hairline); }
+.milestone:first-child { border-top: 0; }
+.milestone__year { flex: none; width: 92px; display: flex; align-items: flex-start; padding-top: 2px; }
+
+/* Role cards read like a delegate credential: photo + id tag, role tag,
+   name, then a barcode-style strip closing the badge. */
+.role-card { text-align: left; }
+.role-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.role-card__head .ph--avatar { margin-bottom: 0; }
+.role-card__id {
+  font-family: var(--font-body); font-weight: 700; font-size: 11px;
+  letter-spacing: 0.1em; color: var(--grey-chip-text);
+  border: 1px solid var(--border-strong); border-radius: var(--radius);
+  padding: 3px 8px; flex: none;
+}
+.role-card__role {
+  font-family: var(--font-body); font-weight: 700; font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+  margin: 0 0 2px;
+}
+.role-card__strip {
+  margin-top: 16px;
+  height: 10px;
+  border-radius: 2px;
+  opacity: 0.32;
+  background: repeating-linear-gradient(90deg,
+    var(--purple) 0 2px, transparent 2px 5px,
+    var(--accent) 5px 6px, transparent 6px 10px,
+    var(--purple) 10px 11px, transparent 11px 16px);
+}
+
+/* --- CONFERENCE: committee cards --------------------------- */
+.committee-group { margin-bottom: 44px; }
+.committee-group__head { display: flex; align-items: flex-start; gap: 16px; }
+.committee-group__subtitle { max-width: 68ch; color: var(--grey-chip-text); margin-top: 4px; }
+/* "No. 01" tag per committee card, numbered fresh within each tier group */
+.committee-group .grid { counter-reset: committee-idx; }
+.committee-group .grid > .card { counter-increment: committee-idx; }
+.committee-group .grid > .card::after {
+  content: "No. " counter(committee-idx, decimal-leading-zero);
+  position: absolute;
+  top: 16px; right: 18px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--grey-chip-text);
+  opacity: 0.55;
+}
+.committee-card__head { display: flex; align-items: center; gap: 14px; }
+.committee-card__logo { flex: none; width: 60px; height: 56px; object-fit: contain; }
+.committee-card__acronym { font-family: var(--font-head); font-weight: 600; font-size: 26px; color: var(--purple); }
+.committee-card__full {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--grey-chip-text); margin: 4px 0 12px;
+}
+.committee-card__head .committee-card__full { margin: 2px 0 0; }
+.committee-card__foot {
+  margin-top: 16px; padding-top: 14px; border-top: var(--hairline);
+  font-size: 12px; color: var(--grey-chip-text);
+}
+.info-box {
+  background: var(--white);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  padding: 22px;
+  position: relative;
+  box-shadow: var(--shadow-rest), var(--bevel);
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --lift: 0px;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(var(--lift));
+  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease), border-color 200ms var(--ease);
+}
+.info-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(220px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(139, 87, 214, 0.14), transparent 70%);
+  transition: opacity 300ms var(--ease);
+}
+.info-box:hover { --lift: -3px; border-color: var(--btn); box-shadow: var(--shadow-hover), var(--bevel); }
+.info-box:hover::before { opacity: 1; }
+.info-box h4 { font-family: var(--font-body); font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+
+/* --- RESOURCES: roman-numeral cards ----------------------- */
+/* .rn-card__numeral styling lives with .numeral-badge in section 8 — same seal. */
+
+/* --- APPLICATION ----------------------------------------- */
+.form-card { background: var(--lilac); border: var(--hairline); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow-rest), var(--bevel); }
+.form-progress {
+  font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--yellow-on-white); margin-bottom: 20px; display: inline-block;
+}
+.field { margin-bottom: 18px; }
+.field label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; color: var(--purple); }
+.field .hint { font-weight: 400; font-size: 12px; color: var(--grey-chip-text); }
+.field__required { color: var(--accent); margin-left: 2px; }
+.field input, .field select, .field textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text);
+  background: var(--white);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 11px 13px;
+  /* Recessed, not raised — a text field reads as a slot cut into the card,
+     the physical opposite of the buttons and cards sitting above it. */
+  box-shadow: inset 0 1px 4px rgba(37, 20, 63, 0.1), inset 0 1px 0 rgba(37, 20, 63, 0.03);
+  transition: box-shadow 160ms var(--ease), border-color 160ms var(--ease);
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+  box-shadow: inset 0 1px 4px rgba(37, 20, 63, 0.12), 0 0 0 4px rgba(139, 87, 214, 0.12);
+}
+.field textarea { min-height: 110px; resize: vertical; }
+.field.has-error input, .field.has-error select, .field.has-error textarea { border-color: #C0392B; }
+.field__error { color: #C0392B; font-size: 13px; margin-top: 5px; display: none; }
+.field.has-error .field__error { display: block; }
+
+.exp-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.exp-option {
+  position: relative;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 14px;
+  cursor: pointer;
+  background: var(--white);
+  font-size: 14px;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(37, 20, 63, 0.05), 0 6px 12px -9px rgba(37, 20, 63, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: border-color 140ms var(--ease), background-color 140ms var(--ease),
+              transform 140ms var(--ease), box-shadow 140ms var(--ease);
+}
+.exp-option:hover { border-color: var(--btn); transform: translateY(-2px); box-shadow: 0 2px 3px rgba(37, 20, 63, 0.06), 0 10px 18px -9px rgba(37, 20, 63, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.7); }
+/* Selected reads as pressed in, same device as the active filter pill. */
+.exp-option.is-selected { border-color: var(--accent); background: var(--lilac-deep); font-weight: 600; transform: none; box-shadow: var(--shadow-press); }
+/* The real radio is visually hidden but still tabbable — :focus-within
+   puts the ring on the visible card instead of the invisible input. */
+.exp-option input { position: absolute; opacity: 0; pointer-events: none; }
+.exp-option:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.confirm-card {
+  background: var(--cream);
+  border: 1px solid #E7CE7A;
+  border-radius: var(--radius);
+  padding: 30px;
+  box-shadow: var(--shadow-rest), var(--bevel);
+}
+.confirm-card__ref {
+  font-family: var(--font-head); font-weight: 600; font-size: 22px; color: var(--purple);
+  letter-spacing: 0.04em;
+}
+.email-preview {
+  background: var(--white);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  padding: 18px;
+  font-size: 13px;
+  white-space: pre-wrap;
+  margin-top: 14px;
+  color: var(--text);
+  box-shadow: inset 0 2px 6px rgba(37, 20, 63, 0.08);
+}
+.how-box { background: var(--grad-purple); color: var(--white); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow-lg), var(--bevel-dark); }
+.how-box h3 { color: var(--white); }
+.how-box ol { list-style: none; counter-reset: step; padding: 0; }
+.how-box li { counter-increment: step; padding: 10px 0 10px 40px; position: relative; font-size: 14px; color: #DDD1EF; border-top: 1px solid rgba(255,255,255,0.12); }
+.how-box li:first-of-type { border-top: 0; }
+.how-box li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 10px;
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  background: var(--btn); color: var(--purple);
+  font-family: var(--font-head); font-weight: 600; font-size: 13px;
+  border-radius: var(--radius);
+}
+.deadline-box { background: var(--white); border: var(--hairline); border-radius: var(--radius); padding: 22px; margin-top: 20px; box-shadow: var(--shadow-rest), var(--bevel); }
+
+/* --- PORTAL (all dark purple) --------------------------- */
+body.page-portal { background: var(--grad-purple); color: #DAD0EC; }
+body.page-portal .section { background: transparent; }
+.portal-lock {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--yellow-on-purple);
+}
+body.page-portal h1, body.page-portal h2, body.page-portal h3 { color: var(--white); }
+body.page-portal p { color: #C4B6DE; }
+.portal-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius);
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 14px 30px -22px rgba(0, 0, 0, 0.5), var(--bevel-dark);
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --lift: 0px;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(var(--lift));
+  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease), border-color 200ms var(--ease);
+}
+.portal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(220px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 214, 51, 0.12), transparent 70%);
+  transition: opacity 300ms var(--ease);
+}
+.portal-card:hover { --lift: -4px; border-color: var(--btn); box-shadow: 0 12px 30px -14px rgba(0,0,0,0.5), var(--bevel-dark); }
+.portal-card:hover::before { opacity: 1; }
+.portal-card__index { font-family: var(--font-head); font-weight: 600; font-size: 15px; color: var(--yellow-on-purple); }
+.portal-card h3 { margin: 6px 0 8px; }
+.portal-signin {
+  margin-top: 34px;
+  border: 1px dashed rgba(255,255,255,0.25);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  color: #9C8DBB;
+  font-size: 14px;
+}
+.portal-signin .btn { pointer-events: none; }
+
+/* 11. VISUAL FLOURISHES & EXTENDED MOTION =====================
+   Additive polish on top of the base system. Everything in this
+   block is switched off under prefers-reduced-motion at the end. */
+
+/* --- Scroll progress bar (injected by js/site.js) ------------ */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--btn), var(--btn-hover));
+  z-index: 200;
+  pointer-events: none;
+  transition: transform 90ms linear;
+}
+
+/* --- Dark-panel backdrop motif: concentric "assembly" rings +
+       a faint dot grid, echoing the crest. Used on the hero and
+       on interior page banners. -------------------------------- */
+/* The dark panel casts a real shadow onto the section below instead of
+   ending at a flush colour seam — reinforced on the home page where the
+   stat row already overlaps it with a negative margin. */
+.hero, .page-banner { position: relative; overflow: hidden; isolation: isolate; box-shadow: 0 40px 50px -36px rgba(10, 4, 14, 0.5); }
+/* --px/--py are nudged by js/site.js (initHeroParallax) as the cursor moves,
+   so the headline drifts a few px toward it — sits still without JS. */
+.hero > .container, .page-banner > .container {
+  position: relative;
+  z-index: 1;
+  transform: translate(var(--px, 0px), var(--py, 0px));
+  transition: transform 400ms var(--ease);
+}
+.hero::before, .page-banner::before {
+  content: "";
+  position: absolute;
+  top: 50%; right: -180px;
+  width: 640px; height: 640px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle,
+    transparent 0 27%,
+    rgba(255, 214, 51, 0.07) 27% 28%, transparent 28% 43%,
+    rgba(255, 255, 255, 0.06) 43% 44%, transparent 44% 61%,
+    rgba(255, 214, 51, 0.05) 61% 62%, transparent 62% 80%,
+    rgba(255, 255, 255, 0.04) 80% 81%, transparent 81%);
+  animation: hero-orbit 48s linear infinite;
+}
+.page-banner::before { width: 460px; height: 460px; right: -160px; opacity: 0.8; }
+
+/* Faint "IV" (fourth edition) medallion — a real element, not the rotating
+   ::before, so the numeral stays upright while the rings turn behind it. */
+.hero__numeral, .page-banner__numeral {
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  transform: translateY(-52%);
+  font-family: var(--font-head);
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.16);
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+.hero__numeral { font-size: 260px; }
+.page-banner__numeral { font-size: 180px; right: 0; opacity: 0.85; }
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1.4px);
+  background-size: 34px 34px;
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent 78%);
+          mask-image: linear-gradient(to bottom, #000, transparent 78%);
+}
+@keyframes hero-orbit { to { transform: translateY(-50%) rotate(360deg); } }
+
+/* --- Hero: staggered load-in -------------------------------
+   .hero-title is excluded here — it types itself in character by character
+   via initTypewriterHeadings() instead of rising as one piece. */
+.hero .eyebrow,
+.hero p,
+.hero__actions,
+.hero .countdown {
+  animation: hero-rise 720ms var(--ease) both;
+}
+.hero .eyebrow    { animation-delay: 60ms; }
+.hero p           { animation-delay: 250ms; }
+.hero__actions    { animation-delay: 350ms; }
+.hero .countdown  { animation-delay: 450ms; }
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --- Nav: hover underline slides in ----------------------- */
+.nav a:not(.btn)::before {
+  content: "";
+  position: absolute;
+  left: 12px; right: 12px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.55);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 200ms var(--ease);
+}
+.nav a:not(.btn):hover::before { transform: scaleX(1); }
+.nav a[aria-current="page"]::before { display: none; }  /* active page keeps its yellow rule */
+
+/* --- Staggered reveal for card grids / tile rows ---------- */
+[data-reveal-stagger] > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--reveal-speed) var(--ease),
+              transform var(--reveal-speed) var(--ease);
+  transition-delay: calc(var(--stagger-i, 0) * 85ms);
+}
+[data-reveal-stagger].is-visible > * { opacity: 1; transform: none; }
+
+/* --- Count-up numbers: hold width steady while ticking ---- */
+[data-count] { font-variant-numeric: tabular-nums; }
+
+/* --- Countdown: flash + pulse the seconds tile on each tick --------- */
+.countdown__tile {
+  transition: border-color 320ms var(--ease), background-color 320ms var(--ease),
+              transform 320ms var(--ease);
+}
+.countdown__tile.is-ticking {
+  border-color: rgba(255, 214, 51, 0.55);
+  background: rgba(255, 214, 51, 0.10);
+  transform: scale(1.05);
+}
+
+/* --- Page transitions: fade the outgoing page out before an internal link
+       navigates away, so it feels like one continuous app rather than a
+       hard reload. js/site.js (initPageTransitions) toggles this on click.
+       Deliberately one-directional (exit only, no matching enter-fade): the
+       new page's own default opacity is always 1, so nothing on the
+       incoming page can ever get stuck invisible if a transition misfires. */
+body { transition: opacity 200ms var(--ease); }
+body.page-exit { opacity: 0; }
+
+/* --- Primary button: subtle sheen sweep on hover --------- */
+.btn--primary { position: relative; overflow: hidden; }
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-18deg);
+  transition: left 480ms var(--ease);
+}
+.btn--primary:hover::after { left: 130%; }
+
+/* --- Pulsing dot: also give the status-strip dot a steady core glow --- */
+.status-strip__item .dot { box-shadow: 0 0 0 4px rgba(224, 184, 12, 0.14); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-progress { display: none; }
+  .hero::before, .page-banner::before { animation: none; }
+  .hero .eyebrow, .hero p,
+  .hero__actions, .hero .countdown { animation: none; }
+  .nav a:not(.btn)::before { transition: none; }
+  [data-reveal-stagger] > * { opacity: 1; transform: none; transition: none; }
+  .btn--primary::after { display: none; }
+  .countdown__tile.is-ticking { background: none; transform: none; }
+  .accordion__panel { transition: none; }
+  .accordion__icon { transition: none; }
+  .nav { transition: none; }
+  body { transition: none; }
+}
+
+/* 12. RESPONSIVE ======================================= */
+@media (max-width: 960px) {
+  .split, .grid-2, .grid-3, .grid-4,
+  .stat-row, .status-strip, .countdown__tiles,
+  .footer-top, .community-grid, .exp-options { grid-template-columns: 1fr; }
+  .footer-top { gap: 28px; }
+  .stat-row { margin-top: 28px; }
+  .countdown__tiles { grid-template-columns: repeat(4, 1fr); }
+  .key-dates__inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+  /* Header collapses to a toggle */
+  .nav-toggle { display: inline-block; }
+  .nav {
+    position: absolute;
+    left: 0; right: 0;
+    top: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    background: var(--purple);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 24px 18px;
+    opacity: 0;
+    transform: translateY(-8px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 200ms var(--ease), transform 200ms var(--ease), visibility 0s linear 200ms;
+  }
+  .nav.is-open {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 220ms var(--ease), transform 220ms var(--ease);
+  }
+  .nav a { padding: 12px; }
+  .nav a[aria-current="page"]::after { left: 12px; right: auto; width: 22px; }
+  .nav .btn { margin: 8px 0 0; }
+  .site-header__inner { position: relative; }
+
+  /* The medallion numeral is a hero/banner background flourish — at
+     narrower widths it has no "background" left to sit in and just
+     collides with stacked content, so it shrinks well before it's hidden. */
+  .hero__numeral { font-size: 150px; }
+  .page-banner__numeral { font-size: 100px; }
+}
+
+@media (max-width: 560px) {
+  .section { padding: 52px 0; }
+  .brand__text { display: none; }        /* keep logos, drop text on small screens */
+  .countdown__tiles { grid-template-columns: repeat(2, 1fr); }
+  .hero__actions .btn { flex: 1; }
+  .hero__numeral, .page-banner__numeral { display: none; }
+}

@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conference — NMSMUN</title>
+  <meta name="description" content="Fifteen NMSMUN committees across four tiers, the two-day schedule, venue and fees, and photos from past editions.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#350D30">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page-conference">
+  <div id="site-header"></div>
+
+  <main>
+
+    <!-- Purple banner -->
+    <div class="page-banner">
+      <span class="page-banner__numeral" aria-hidden="true">IV</span>
+      <div class="container">
+        <span class="eyebrow" data-typewriter>The conference</span>
+        <h1>2–3 October 2026 · Venue TBA · 15 Committees</h1>
+        <p>Two days of committee debate across junior, beginner, intermediate and advanced tracks.</p>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         COMMITTEES  (filter pills + three tier groups)
+         ============================================================ -->
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">Committees</span>
+        <h2 class="section-title">Fifteen rooms, four tiers.</h2>
+        <p style="max-width:70ch">From a first Junior room built for new delegates to full crisis tempo in the tribunals and response committees. Some rooms straddle two tiers — filter by either.</p>
+
+        <!-- Filter pills — handled by initCommitteeFilter() in js/site.js -->
+        <div class="pills" data-filter-pills style="margin:22px 0 40px">
+          <button class="pill is-active" data-tier="all">All</button>
+          <button class="pill" data-tier="junior">Junior</button>
+          <button class="pill" data-tier="beginner">Beginner</button>
+          <button class="pill" data-tier="intermediate">Intermediate</button>
+          <button class="pill" data-tier="advanced">Advanced</button>
+        </div>
+
+        <div class="committee-group">
+          <div class="grid grid-3" style="margin-top:22px" data-reveal-stagger>
+
+            <!-- 1. UNICEF — Junior -->
+            <div class="card card--hover" data-tiers="junior">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/unicef.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">UNICEF</div>
+                  <div class="committee-card__full">United Nations International Children's Emergency Fund</div>
+                </div>
+              </div>
+              <span class="chip">Junior</span>
+              <p class="small"><strong>Preventing the Exploitation of Children Through Forced Labour and Recruitment by Armed Groups.</strong></p>
+              <p class="small">A protection-focused committee built for first-time delegates, with guided caucusing around one of MUN's most human agenda items.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+            <!-- 2. UNGA Third Committee — Beginner -->
+            <div class="card card--hover" data-tiers="beginner">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/unga.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">GA3</div>
+                  <div class="committee-card__full">United Nations General Assembly — Third Committee</div>
+                </div>
+              </div>
+              <span class="chip">Beginner</span>
+              <p class="small"><strong>Addressing the Humanitarian Consequences of Online Radicalisation, Disinformation, and Digital Harm.</strong></p>
+              <p class="small">The Assembly's social and humanitarian committee, taking on a distinctly modern harm. Broad speakers' list, gentle pace.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+            <!-- 3. UNODC — Beginner / Intermediate -->
+            <div class="card card--hover" data-tiers="beginner intermediate">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/unodc.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">UNODC</div>
+                  <div class="committee-card__full">United Nations Office on Drugs and Crime</div>
+                </div>
+              </div>
+              <span class="chip">Beginner · Intermediate</span>
+              <p class="small"><strong>Addressing State Engagement and Cooperation with Transnational Criminal Organizations.</strong></p>
+              <p class="small">Real cartels and complicit states, moderated at a pace that suits delegates moving up from their first conference.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+            <!-- 4. UNGA Sixth Committee — Beginner / Intermediate -->
+            <div class="card card--hover" data-tiers="beginner intermediate">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/unga.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">GA6</div>
+                  <div class="committee-card__full">United Nations General Assembly — Sixth Committee</div>
+                </div>
+              </div>
+              <span class="chip">Beginner · Intermediate</span>
+              <p class="small"><strong>Strengthening International Legal Frameworks to Prevent the Abuse of Emergency Powers by Governments.</strong></p>
+              <p class="small">The Assembly's legal committee. Drafting-heavy, but paced for delegates still building confidence with procedure.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+            <!-- 5. IFTVA — Beginner / Intermediate -->
+            <div class="card card--hover" data-tiers="beginner intermediate">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/iftva.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">IFTVA</div>
+                  <div class="committee-card__full">International Film and Television Association</div>
+                </div>
+              </div>
+              <span class="chip">Beginner · Intermediate</span>
+              <p class="small"><strong>Evaluating the Domination of Franchise Culture and Barriers to Authentic and Indie Film Houses.</strong></p>
+              <p class="small">A specialised industry committee — studios, streamers and indie houses at the table. A lighter subject with real economic stakes.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+            <!-- 6. UNCSW — Intermediate -->
+            <div class="card card--hover" data-tiers="intermediate">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/uncsw.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">UNCSW</div>
+                  <div class="committee-card__full">United Nations Commission on the Status of Women</div>
+                </div>
+              </div>
+              <span class="chip">Intermediate</span>
+              <p class="small"><strong>Confronting the Polarisation Surrounding Feminism and Its Implications for the Global Women's Rights Movement.</strong></p>
+              <p class="small">Full procedure at pace on one of the most contested social debates on the floor. Sourced position papers expected.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+            <!-- 7. IPRT — Intermediate / Advanced -->
+            <div class="card card--hover" data-tiers="intermediate advanced">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/iprt.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">IPRT</div>
+                  <div class="committee-card__full">International Psychological Review Tribunal</div>
+                </div>
+              </div>
+              <span class="chip">Intermediate · Advanced</span>
+              <p class="small"><strong>Examining the Role of Psychological Processes in Shaping Perception, Belief Systems, and Human Actions.</strong></p>
+              <p class="small">A tribunal-format committee examining the mind itself — evidence, testimony and judgment in place of resolutions.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · Tribunal procedure</div>
+            </div>
+
+            <!-- 8. UNSTIR — Intermediate / Advanced -->
+            <div class="card card--hover" data-tiers="intermediate advanced">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/unstir.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">UNSTIR</div>
+                  <div class="committee-card__full">United Nations Special Tribunal on Institutional Reform</div>
+                </div>
+              </div>
+              <span class="chip">Intermediate · Advanced</span>
+              <p class="small"><strong>Assessing the Performance of the United Nations Apparatus.</strong></p>
+              <p class="small">The UN puts itself on trial. Delegates argue institutional reform through formal tribunal procedure, not caucusing.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · Tribunal procedure</div>
+            </div>
+
+            <!-- 9. FIFA-GACC — Intermediate / Advanced -->
+            <div class="card card--hover" data-tiers="intermediate advanced">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/fifa-gacc.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">FIFA-GACC</div>
+                  <div class="committee-card__full">FIFA Governance, Audit and Compliance Committee</div>
+                </div>
+              </div>
+              <span class="chip">Intermediate · Advanced</span>
+              <p class="small"><strong>Scrutinising the Equity Sale of the World Cup to Private Investors and the Integrity of the FIFA Forward Enterprise.</strong></p>
+              <p class="small">A specialised governance body outside the UN system, auditing football's biggest institution at pace.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+            <!-- 10. UNHRC — Intermediate / Advanced -->
+            <div class="card card--hover" data-tiers="intermediate advanced">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/unhrc.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">UNHRC</div>
+                  <div class="committee-card__full">United Nations Human Rights Council</div>
+                </div>
+              </div>
+              <span class="chip">Intermediate · Advanced</span>
+              <p class="small"><strong>Protecting the Rights of Minorities Amidst Rising Nationalism and Identity Politics.</strong></p>
+              <p class="small">Full procedure, contested working papers, and a rights agenda shaped by rising nationalism worldwide.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+            <!-- 11. Lok Sabha — Intermediate / Advanced -->
+            <div class="card card--hover" data-tiers="intermediate advanced">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/lok-sabha.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">Lok Sabha</div>
+                  <div class="committee-card__full">Lok Sabha</div>
+                </div>
+              </div>
+              <span class="chip">Intermediate · Advanced</span>
+              <p class="small"><strong>Addressing Regional Power Imbalances in the Wake of Parliamentary Delimitation.</strong></p>
+              <p class="small">A parliamentary simulation of India's lower house, run under parliamentary rather than UN procedure.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · Parliamentary procedure</div>
+            </div>
+
+            <!-- 12. UNSC — Advanced -->
+            <div class="card card--hover" data-tiers="advanced">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/unsc.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">UNSC</div>
+                  <div class="committee-card__full">United Nations Security Council</div>
+                </div>
+              </div>
+              <span class="chip">Advanced</span>
+              <p class="small"><strong>Addressing Peace and Security Challenges Arising from Foreign Military Influence and the New Scramble for Africa.</strong></p>
+              <p class="small">Fifteen seats, the veto in play, and a live security agenda shaped by great-power competition on the continent.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · Council rules</div>
+            </div>
+
+            <!-- 13. UNSG-SAB — Advanced -->
+            <div class="card card--hover" data-tiers="advanced">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/unsg-sab.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">UNSG-SAB</div>
+                  <div class="committee-card__full">UN Secretary-General's Scientific Advisory Board</div>
+                </div>
+              </div>
+              <span class="chip">Advanced</span>
+              <p class="small"><strong>Regulation of Deep Sea Mining and the Protection of Marine Biodiversity Across International Waters.</strong></p>
+              <p class="small">A technical, evidence-heavy committee at advanced tempo — scientific testimony carries as much weight as diplomacy.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+            <!-- 14. BSRC — Advanced -->
+            <div class="card card--hover" data-tiers="advanced">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/bsrc.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">BSRC</div>
+                  <div class="committee-card__full">Black Swan Response Committee</div>
+                </div>
+              </div>
+              <span class="chip">Advanced</span>
+              <p class="small"><strong>Strengthening Global Stability through Intelligence-Driven Peacekeeping Strategies and Coordinated Crisis Response Mechanisms.</strong></p>
+              <p class="small">A crisis committee built for the unexpected — rolling updates, intelligence injects and decisions made under pressure.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · Crisis directives</div>
+            </div>
+
+            <!-- 15. EAP — Advanced -->
+            <div class="card card--hover" data-tiers="advanced">
+              <div class="committee-card__head">
+                <img class="committee-card__logo" src="assets/committees/eap.svg" alt="" width="56" height="56" loading="lazy">
+                <div>
+                  <div class="committee-card__acronym">EAP</div>
+                  <div class="committee-card__full">Economic Acceleration Panel</div>
+                </div>
+              </div>
+              <span class="chip">Advanced</span>
+              <p class="small"><strong>Amplifying Economic Innovation and Resolving International Market Failures.</strong></p>
+              <p class="small">Development and economic policy at full tempo, with chairs who push for evidence behind every clause.</p>
+              <div class="committee-card__foot"><span class="tba">TBA</span> delegates · GA rules</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SCHEDULE
+         ============================================================ -->
+    <section class="section section--white" id="schedule">
+      <div class="container">
+        <span class="eyebrow">Programme</span>
+        <h2 class="section-title">Two-day schedule</h2>
+        <p style="max-width:60ch">Running order is fixed; exact times are released with the delegate handbook.</p>
+
+        <div class="table-wrap" style="margin-top:24px">
+          <table class="schedule">
+            <thead>
+              <tr><th scope="col">Time</th><th scope="col">Day 1 · 2 Oct</th><th scope="col">Day 2 · 3 Oct</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="tba">TBA</span></td><td>Registration &amp; opening ceremony</td><td>Committee session III</td></tr>
+              <tr><td><span class="tba">TBA</span></td><td>Committee session I</td><td>Crisis break / inter-committee</td></tr>
+              <tr><td><span class="tba">TBA</span></td><td>Lunch</td><td>Lunch</td></tr>
+              <tr><td><span class="tba">TBA</span></td><td>Committee session II</td><td>Voting procedure</td></tr>
+              <tr><td><span class="tba">TBA</span></td><td>Unmoderated caucus &amp; drafting</td><td>Closing ceremony &amp; awards</td></tr>
+              <tr><td><span class="tba">TBA</span></td><td>Day 1 close</td><td>Conference close</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LOGISTICS
+         ============================================================ -->
+    <section class="section" id="logistics">
+      <div class="container">
+        <span class="eyebrow">Logistics</span>
+        <h2 class="section-title">Venue &amp; fees</h2>
+
+        <div class="grid grid-3" style="margin-top:24px" data-reveal-stagger>
+          <div class="info-box">
+            <svg class="icon-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 21.5S5 14.8 5 9.8a7 7 0 0 1 14 0c0 5-7 11.7-7 11.7z"/>
+              <circle cx="12" cy="9.5" r="2.4"/>
+            </svg>
+            <h4>Venue</h4>
+            <p class="card-title" style="margin:6px 0"><span class="tba">TBA</span></p>
+            <p class="small muted">GEMS New Millennium School Campus, Dubai.</p>
+          </div>
+          <div class="info-box">
+            <svg class="icon-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="5" y="2.5" width="14" height="19" rx="1"/>
+              <line x1="9" y1="2.5" x2="9" y2="21.5"/>
+              <circle cx="13.8" cy="12" r="0.9" fill="currentColor" stroke="none"/>
+            </svg>
+            <h4>Committee rooms</h4>
+            <p class="card-title" style="margin:6px 0"><span class="tba">TBA</span></p>
+            <p class="small muted">Room allocations published with the handbook.</p>
+          </div>
+          <div class="info-box">
+            <svg class="icon-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 8.5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.2a1.7 1.7 0 0 0 0 3.2v1.6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.6a1.7 1.7 0 0 0 0-3.2V8.5z"/>
+              <line x1="14.5" y1="7" x2="14.5" y2="17" stroke-dasharray="1.6 2"/>
+            </svg>
+            <h4>Delegate fee</h4>
+            <p class="card-title" style="margin:6px 0">AED 200</p>
+            <p class="small muted">Includes materials and both lunches.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PHOTO GALLERY
+         ============================================================ -->
+    <section class="section section--white" id="gallery">
+      <div class="container">
+        <span class="eyebrow">Archive</span>
+        <h2 class="section-title">Past conferences</h2>
+        <p style="max-width:60ch">Drop real photographs from previous editions into these slots.</p>
+        <p style="margin-top:8px"><span class="tba">Years TBA</span></p>
+
+        <div class="grid grid-3" style="margin-top:24px" data-reveal-stagger>
+          <div class="ph" style="aspect-ratio:4/3">Photo 1</div>
+          <div class="ph" style="aspect-ratio:4/3">Photo 2</div>
+          <div class="ph" style="aspect-ratio:4/3">Photo 3</div>
+          <div class="ph" style="aspect-ratio:4/3">Photo 4</div>
+          <div class="ph" style="aspect-ratio:4/3">Photo 5</div>
+          <div class="ph" style="aspect-ratio:4/3">Photo 6</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="js/site.js"></script>
+</body>
+</html>

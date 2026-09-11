@@ -1,0 +1,14 @@
+# HTTP security headers for hosts that read this file (Netlify, Cloudflare
+# Pages). Ignored — harmlessly — by hosts that don't (GitHub Pages). The
+# equivalent for an Apache "school web server" is in .htaccess.
+#
+# These cover the protections a <meta> tag cannot express (frame-ancestors,
+# X-Frame-Options, X-Content-Type-Options, HSTS); the CSP itself is also set
+# via <meta> in each page's <head> as a second line of defence.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
