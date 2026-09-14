@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Portal — NMSMUN</title>
+<meta name="description" content="NMSMUN Student Portal — access your committee, resources, schedule and application status.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Outfit:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/portal.css">
+</head>
+
+<body class="page-portal">
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="portal.html" aria-label="NMSMUN portal">
+      <span class="brand__logos">
+        <img src="assets/logo-school.png" alt="GEMS New Millennium School">
+        <span class="brand__divider" aria-hidden="true"></span>
+        <img src="assets/logo-nmsmun.png" alt="NMSMUN">
+      </span>
+      <span class="brand__text">
+        <span class="brand__name">NMSMUN</span>
+        <span class="brand__school">Student Portal</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#quick-actions">Quick actions</a>
+      <a href="#preparation">Preparation</a>
+      <a href="#notices">Notices</a>
+      <a href="signin.html" class="btn btn--outline-light btn--sm">Sign out</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     PORTAL HERO
+     ============================================================ -->
+<section class="portal-hero">
+  <div class="container">
+    <span class="eyebrow eyebrow--on-purple">Student Portal</span>
+    <h1>Welcome back, Aisha</h1>
+    <p>Everything you need for NMSMUN in one place — your committee, your documents, your deadlines. Nothing is hidden behind a menu.</p>
+
+    <div class="who-strip">
+      <div class="who-strip__avatar" aria-hidden="true">A</div>
+      <div>
+        <div class="who-strip__name">Aisha Rahman</div>
+        <div class="who-strip__meta">Delegate · Grade 11 · ECOFIN</div>
+      </div>
+      <div class="who-strip__spacer"></div>
+      <span class="chip chip--live"><span class="dot" aria-hidden="true"></span> Registration confirmed</span>
+      <a href="signin.html" class="btn btn--outline-light btn--sm">Sign out</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DASHBOARD
+     ============================================================ -->
+<main class="section section--tight" id="dashboard">
+  <div class="container">
+    <div class="dash">
+
+      <!-- ============ MAIN COLUMN ============ -->
+      <div>
+
+        <!-- Quick actions -->
+        <div class="row-between" id="quick-actions" style="margin-bottom: 18px; scroll-margin-top: 90px;">
+          <div>
+            <span class="eyebrow eyebrow--on-purple">Quick actions</span>
+            <h2 class="section-title" style="font-size: 26px; margin: 0;">Jump straight in</h2>
+          </div>
+        </div>
+
+        <div class="quick-grid" data-reveal-stagger>
+          <a class="quick-tile" href="#resources" data-open-tab="resources">
+            <span class="quick-tile__icon" aria-hidden="true">📄</span>
+            <span class="quick-tile__title">Study guides</span>
+            <p class="quick-tile__desc">Background guides, rules of procedure and position-paper templates for your committee.</p>
+            <span class="quick-tile__meta">Open resources →</span>
+          </a>
+
+          <a class="quick-tile" href="#committee" data-open-tab="committee">
+            <span class="quick-tile__icon" aria-hidden="true">🏛️</span>
+            <span class="quick-tile__title">My committee</span>
+            <p class="quick-tile__desc">ECOFIN — Economic and Financial Affairs. See your chair, topics and fellow delegates.</p>
+            <span class="quick-tile__meta">View committee →</span>
+          </a>
+
+          <a class="quick-tile" href="#schedule" data-open-tab="schedule">
+            <span class="quick-tile__icon" aria-hidden="true">🗓️</span>
+            <span class="quick-tile__title">Schedule</span>
+            <p class="quick-tile__desc">Session times, breaks and the closing ceremony — all in one table.</p>
+            <span class="quick-tile__meta">See timetable →</span>
+          </a>
+
+          <a class="quick-tile" href="#paper" data-open-tab="paper">
+            <span class="quick-tile__icon" aria-hidden="true">✍️</span>
+            <span class="quick-tile__title">Position paper</span>
+            <p class="quick-tile__desc">Upload your position paper and check the submission deadline.</p>
+            <span class="quick-tile__meta">Upload now →</span>
+          </a>
+
+          <a class="quick-tile" href="#resources" data-open-tab="resources">
+            <span class="quick-tile__icon" aria-hidden="true">❓</span>
+            <span class="quick-tile__title">Help &amp; FAQ</span>
+            <p class="quick-tile__desc">Common questions about dress code, awards, and what to bring on the day.</p>
+            <span class="quick-tile__meta">Read FAQ →</span>
+          </a>
+
+          <a class="quick-tile" href="mailto:secretariat@nmsmun.school">
+            <span class="quick-tile__icon" aria-hidden="true">✉️</span>
+            <span class="quick-tile__title">Email the secretariat</span>
+            <p class="quick-tile__desc">Can't find what you need? The team replies within one school day.</p>
+            <span class="quick-tile__meta">Send email →</span>
+          </a>
+        </div>
+
+        <!-- Preparation checklist -->
+        <div style="margin-top: 44px; scroll-margin-top: 90px;" id="preparation">
+          <span class="eyebrow eyebrow--on-purple">Your preparation</span>
+          <h2 class="section-title" style="font-size: 26px;">Am I ready?</h2>
+          <p class="muted" style="max-width: 60ch;">Four steps, in order. Tick them off as you go — you'll get a confirmation email when each one is received.</p>
+
+          <div class="checklist" data-reveal-stagger>
+            <div class="checklist__item checklist__item--done">
+              <span class="checklist__mark" aria-hidden="true">✓</span>
+              <span class="checklist__label">Application submitted</span>
+              <span class="checklist__hint">12 Aug 2026</span>
+            </div>
+            <div class="checklist__item checklist__item--done">
+              <span class="checklist__mark" aria-hidden="true">✓</span>
+              <span class="checklist__label">Committee preference confirmed (ECOFIN)</span>
+              <span class="checklist__hint">18 Aug 2026</span>
+            </div>
+            <div class="checklist__item checklist__item--todo">
+              <span class="checklist__mark" aria-hidden="true">!</span>
+              <span class="checklist__label">Position paper uploaded</span>
+              <span class="checklist__hint">Due 30 Sep</span>
+            </div>
+            <div class="checklist__item checklist__item--todo">
+              <span class="checklist__mark" aria-hidden="true">!</span>
+              <span class="checklist__label">Delegate fee paid</span>
+              <span class="checklist__hint">Due 05 Oct</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conference hub (tabs) -->
+        <div style="margin-top: 44px; scroll-margin-top: 90px;" id="schedule">
+          <div class="row-between" style="margin-bottom: 14px;">
+            <div>
+              <span class="eyebrow eyebrow--on-purple">Conference hub</span>
+              <h2 class="section-title" style="font-size: 26px; margin: 0;">Everything for the weekend</h2>
+            </div>
+          </div>
+
+          <div class="portal-tabs" role="tablist">
+            <button class="is-active" data-tab="schedule" role="tab" aria-selected="true">Schedule</button>
+            <button data-tab="committee" role="tab" aria-selected="false">My Committee</button>
+            <button data-tab="paper" role="tab" aria-selected="false">Position Paper</button>
+            <button data-tab="resources" role="tab" aria-selected="false">Resources</button>
+          </div>
+
+          <!-- Schedule panel -->
+          <section class="portal-panel is-active" id="panel-schedule" role="tabpanel">
+            <div class="portal-card">
+              <h3 style="margin-top:0; margin-bottom:6px;">Conference schedule</h3>
+              <p class="small" style="color:#C4B6DE; margin-bottom:18px;">
+                All timings in GST. Doors open 30 minutes before each session.
+              </p>
+
+              <div class="table-wrap">
+                <table class="schedule">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Session</th>
+                      <th>Location</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>08:30</strong></td>
+                      <td>Registration &amp; badge collection</td>
+                      <td>Main atrium</td>
+                    </tr>
+                    <tr>
+                      <td><strong>09:30</strong></td>
+                      <td>Opening ceremony</td>
+                      <td>Auditorium</td>
+                    </tr>
+                    <tr>
+                      <td><strong>10:30</strong></td>
+                      <td>Session I — Setting the agenda</td>
+                      <td>Committee rooms</td>
+                    </tr>
+                    <tr>
+                      <td><strong>13:00</strong></td>
+                      <td>Lunch</td>
+                      <td>Canteen</td>
+                    </tr>
+                    <tr>
+                      <td><strong>14:00</strong></td>
+                      <td>Session II — Moderated caucus</td>
+                      <td>Committee rooms</td>
+                    </tr>
+                    <tr>
+                      <td><strong>17:00</strong></td>
+                      <td>Closing ceremony &amp; awards</td>
+                      <td>Auditorium</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Committee panel -->
+          <section class="portal-panel" id="panel-committee" role="tabpanel">
+            <div class="portal-card">
+              <div class="committee-card__head" style="margin-bottom: 12px;">
+                <span class="numeral-badge numeral-badge--on-purple" aria-hidden="true">II</span>
+                <div>
+                  <div class="committee-card__acronym" style="font-size: 24px; color: var(--white);">ECOFIN</div>
+                  <div class="committee-card__full" style="margin: 2px 0 0; color: var(--yellow-on-purple);">
+                    Economic and Financial Affairs
+                  </div>
+                </div>
+              </div>
+              <p style="color:#D6C9EC; margin: 0 0 10px;">
+                <strong style="color:var(--white);">Topic:</strong>
+                Financing the green transition in emerging economies.
+              </p>
+              <p style="color:#C4B6DE; margin: 0 0 16px;">
+                <strong style="color:var(--white);">Chair:</strong> Mr. K. Anand ·
+                <strong style="color:var(--white);">Delegates:</strong> 18 ·
+                <strong style="color:var(--white);">Room:</strong> B-204
+              </p>
+
+              <div class="res-grid">
+                <a class="res-link" href="#resources" data-open-tab="resources">
+                  Study guide
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+                <a class="res-link" href="#resources" data-open-tab="resources">
+                  Rules of procedure
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Position paper panel -->
+          <section class="portal-panel" id="panel-paper" role="tabpanel">
+            <div class="portal-card">
+              <h3 style="margin-top:0; margin-bottom:6px;">Position paper</h3>
+              <p style="color:#C4B6DE; margin: 0 0 18px;">
+                Upload one PDF, max 2 pages. Deadline: <strong style="color:var(--yellow-on-purple);">30 Sep 2026, 23:59 GST</strong>.
+              </p>
+
+              <div class="progress" aria-hidden="true"><span style="width: 0%"></span></div>
+              <p class="small" style="color:#C4B6DE; margin-top:8px;">No file uploaded yet.</p>
+
+              <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+                <button type="button" class="btn btn--primary" data-upload>Upload PDF</button>
+                <button type="button" class="btn btn--outline-light" data-template>Download template</button>
+              </div>
+
+              <div class="notice-box" style="margin-top:20px;">
+                <strong>Tip —</strong>
+                <span>Name your file <em>ECOFIN_YourName_Position.pdf</em> so the chairs can find it quickly.</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Resources panel -->
+          <section class="portal-panel" id="panel-resources" role="tabpanel">
+            <div class="portal-card">
+              <h3 style="margin-top:0; margin-bottom:6px;">Resources</h3>
+              <p style="color:#C4B6DE; margin: 0 0 18px;">
+                Everything you need before, during and after the conference.
+              </p>
+
+              <div class="res-grid">
+                <a class="res-link" href="#resources">Background guide — ECOFIN <span class="arrow">→</span></a>
+                <a class="res-link" href="#resources">Rules of procedure 2026 <span class="arrow">→</span></a>
+                <a class="res-link" href="#resources">Position paper template <span class="arrow">→</span></a>
+                <a class="res-link" href="#resources">Resolution format <span class="arrow">→</span></a>
+                <a class="res-link" href="#resources">Dress code &amp; etiquette <span class="arrow">→</span></a>
+                <a class="res-link" href="#resources">FAQ <span class="arrow">→</span></a>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Notices -->
+        <div style="margin-top: 44px; scroll-margin-top: 90px;" id="notices">
+          <div class="row-between" style="margin-bottom: 14px;">
+            <div>
+              <span class="eyebrow eyebrow--on-purple">Notices</span>
+              <h2 class="section-title" style="font-size: 26px; margin: 0;">Things to do</h2>
+            </div>
+            <button type="button" class="btn btn--outline-light btn--sm" data-mark-read>Mark all read</button>
+          </div>
+
+          <div class="task-list" data-reveal-stagger>
+            <div class="task">
+              <span class="task__dot task__dot--urgent" aria-hidden="true"></span>
+              <div>
+                <p class="task__title">Position paper deadline is in 9 days</p>
+                <p class="task__meta">Upload a PDF, max 2 pages, to the Position Paper tab. Late papers cannot be considered for the Best Position Paper award.</p>
+              </div>
+            </div>
+            <div class="task">
+              <span class="task__dot task__dot--soon" aria-hidden="true"></span>
+              <div>
+                <p class="task__title">Delegate fee payment window opens Monday</p>
+                <p class="task__meta">AED 150 per delegate. Pay via the school portal; bring the receipt on the first day.</p>
+              </div>
+            </div>
+            <div class="task">
+              <span class="task__dot task__dot--info" aria-hidden="true"></span>
+              <div>
+                <p class="task__title">New: Rules of Procedure updated</p>
+                <p class="task__meta">The 2026 RoP now includes a short guide to moderated caucuses. Worth 10 minutes before your first session.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============ STICKY ASIDE ============ -->
+      <aside class="dash__aside">
+
+        <div class="mini-count" aria-label="Days until the conference">
+          <span class="mini-count__num" data-countdown-days>—</span>
+          <span class="mini-count__text">
+            <strong>days to go</strong>
+            until NMSMUN 2026 opens
+          </span>
+        </div>
+
+        <div class="status-card">
+          <div class="status-card__label">Your application</div>
+          <div class="status-card__value">Approved — ECOFIN</div>
+          <p class="status-card__note">
+            You're registered as a delegate for the Economic and Financial Affairs committee.
+            Reference: <strong>NMS-2026-0417</strong>
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Key dates</h3>
+          <ul class="stack-sm" style="font-size: 14px;">
+            <li class="row-between"><span class="muted">Position paper due</span><strong>30 Sep 2026</strong></li>
+            <li class="row-between"><span class="muted">Delegate fee</span><strong>05 Oct 2026</strong></li>
+            <li class="row-between"><span class="muted">Opening ceremony</span><strong>24 Oct 2026</strong></li>
+            <li class="row-between"><span class="muted">Closing ceremony</span><strong>26 Oct 2026</strong></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Need help?</h3>
+          <p class="muted" style="font-size: 13.5px; margin: 0 0 12px;">The secretariat replies within one school day.</p>
+          <a class="btn btn--outline btn--sm" href="mailto:secretariat@nmsmun.school">Email secretariat</a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="margin-top:0; border-top:0;">
+      <span>© 2026 NMSMUN. All rights reserved.</span>
+      <span><a href="mailto:secretariat@nmsmun.school">secretariat@nmsmun.school</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/portal.js" defer></script>
+</body>
+</html>

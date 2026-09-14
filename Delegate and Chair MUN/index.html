@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — NMSMUN Student Portal</title>
+<meta name="description" content="Sign in to the NMSMUN Student Portal.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Outfit:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/portal.css">
+</head>
+
+<body class="page-portal">
+
+<!-- Minimal header — brand only, no nav (visitor isn't signed in yet) -->
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="signin.html" aria-label="NMSMUN portal">
+      <span class="brand__logos">
+        <img src="assets/logo-school.png" alt="GEMS New Millennium School">
+        <span class="brand__divider" aria-hidden="true"></span>
+        <img src="assets/logo-nmsmun.png" alt="NMSMUN">
+      </span>
+      <span class="brand__text">
+        <span class="brand__name">NMSMUN</span>
+        <span class="brand__school">Student Portal</span>
+      </span>
+    </a>
+  </div>
+</header>
+
+<!-- Sign-in screen -->
+<main class="signin-screen">
+  <div class="signin-card">
+
+    <span class="eyebrow eyebrow--on-purple">Student Portal</span>
+    <h1 class="signin-card__title">Sign in</h1>
+    <p class="signin-card__lede">
+      Use the email you registered with and the password from your confirmation email.
+    </p>
+
+    <form class="signin-form" id="signin-form" novalidate>
+
+      <div class="field">
+        <label for="email">School email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="you@nms.school"
+          aria-describedby="email-error">
+        <span class="field__error" id="email-error" role="alert"></span>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="Your password"
+          aria-describedby="password-error">
+        <span class="field__error" id="password-error" role="alert"></span>
+      </div>
+
+      <div class="signin-row">
+        <label class="signin-remember">
+          <input type="checkbox" id="remember" name="remember">
+          <span>Keep me signed in</span>
+        </label>
+        <a href="#" class="signin-link" data-forgot>Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn btn--primary signin-submit">
+        Sign in
+      </button>
+
+      <div class="signin-status" id="signin-status" role="status" aria-live="polite"></div>
+    </form>
+
+    <div class="signin-foot">
+      <p>
+        <strong>Don't have an account?</strong>
+        Ask the secretariat to send you an invite — they'll issue one after your application is approved.
+      </p>
+      <p class="muted small">
+        Trouble signing in? Email
+        <a href="mailto:secretariat@nmsmun.school">secretariat@nmsmun.school</a>.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Decorative side panel (hidden on small screens) -->
+  <aside class="signin-aside" aria-hidden="true">
+    <div class="signin-aside__inner">
+      <span class="numeral-badge numeral-badge--on-purple">IV</span>
+      <h2>Fourth edition</h2>
+      <p>NMSMUN 2026 · Dubai. Delegates from across the Gulf, one weekend, one agenda.</p>
+      <ul class="signin-aside__list">
+        <li><span class="dot"></span> Registration opens soon</li>
+        <li><span class="dot"></span> Position papers due 30 Sep</li>
+        <li><span class="dot"></span> Conference 24–26 Oct</li>
+      </ul>
+    </div>
+  </aside>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="margin-top:0; border-top:0;">
+      <span>© 2026 NMSMUN. All rights reserved.</span>
+      <span><a href="mailto:secretariat@nmsmun.school">secretariat@nmsmun.school</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/signin.js" defer></script>
+</body>
+</html>
