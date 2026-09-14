@@ -101,7 +101,11 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  user-select: none;
 }
+
+.element::-webkit-scrollbar { display:none; }
+.element { -ms-overflow-style: none; scrollbar-width: none; }
 
 img { max-width: 100%; display: block; }
 a { color: var(--accent); text-decoration: none; }
@@ -937,6 +941,9 @@ table.schedule tbody tr:nth-child(even) { background: #FBF8FE; }
   flex: none;
   font-family: var(--font-body); font-size: 12px; font-weight: 700;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--yellow-on-purple);
+}
+.key-dates .weird {
+  white-space: pre-line;
 }
 .status-strip {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;

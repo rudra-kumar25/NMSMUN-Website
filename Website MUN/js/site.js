@@ -27,7 +27,7 @@ const SITE_CONFIG = {
      Replace with the real conference start once confirmed (ISO format,
      local time). While countdownDateIsConfirmed is false the home page shows a
      "DATE TBA" chip; when true it shows the formatted date instead. */
-  countdownTargetISO: "2026-10-02T09:00:00+04:00",
+  countdownTargetISO: new Date("1790926200" * 1000).toISOString(),
   countdownDateIsConfirmed: true,    // set to false again if the date changes to unknown
 
   /* Logo files (in /assets). Swap the files, keep the names — or change here. */
