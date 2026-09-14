@@ -142,3 +142,10 @@ python3 -m http.server 8000
 ```
 
 then open <http://localhost:8000>.
+
+## Edits
+
+SriDaCoder's 'A few edits':
+1. Updated `application.html` to attempt to redirect to the forms upon opening
+2. Updated the time stamp to refer to exactly 7:30 A.M. on 2nd October
+3. Updated a few details on `index.html`
